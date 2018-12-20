@@ -23,9 +23,11 @@
           </b-col>
         </b-row>
       </header>
+    </b-container>
 
-      <b-navbar sticky type="dark" variant="dark" toggleable="md">
-        <b-navbar-toggle sticky target="nav_dropdown_collapse"></b-navbar-toggle>
+    <b-navbar sticky type="dark" variant="dark" toggleable="md">
+      <b-container>
+        <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
         <b-navbar-brand to="/">TGIF</b-navbar-brand>
         <b-collapse is-nav id="nav_dropdown_collapse">
           <b-navbar-nav>
@@ -45,23 +47,23 @@
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
-      </b-navbar>
-    </b-container>
+      </b-container>
+    </b-navbar>
+
     <b-container xl="*">
       <router-view></router-view>
     </b-container>
-    <b-container xl="*">
-      <footer class="p-3 bg-dark text-white">
-        <div class="container">
-          <!-- Copyright -->
-          <div class="text-center">
-            © 2018 TGIF |
-            <a href>All Rights Reserved</a>
-          </div>
-          <!-- Copyright -->
+
+    <footer class="p-3 bg-dark text-white">
+      <div class="container">
+        <!-- Copyright -->
+        <div class="text-center">
+          © 2018 TGIF |
+          <a href>All Rights Reserved</a>
         </div>
-      </footer>
-    </b-container>
+        <!-- Copyright -->
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -254,14 +256,14 @@ html {
 
 .navbar-top {
   position: sticky !important;
-  top: 0px;
-  z-index: 1071;
+  top: 67px;
+  z-index: 1019;
   border: 1px solid red;
 }
 
 .nav-sticky th {
   position: sticky !important;
-  top: 137px;
+  top: 204px;
   background: #a0a6ab;
 }
 

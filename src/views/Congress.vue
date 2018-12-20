@@ -202,8 +202,8 @@ export default {
 <style scoped>
 .sticky-top-form {
   position: sticky;
-  top: 0px;
+  top: 67px;
   background: #c5e0fc;
-  z-index: 1020;
+  z-index: 1019;
 }
 </style>

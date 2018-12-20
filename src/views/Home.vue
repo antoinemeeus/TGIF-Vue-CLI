@@ -8,7 +8,7 @@
               <div role="tablist">
                 <b-card no-body class="mb-1">
                   <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-btn block href="#" v-b-toggle.accordion1 variant="info">About Us</b-btn>
+                    <b-btn block href="#" v-b-toggle.accordion1 variant="secondary">About Us</b-btn>
                   </b-card-header>
                   <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
                     <b-card-body>
@@ -27,7 +27,7 @@
                       block
                       href="#"
                       v-b-toggle.accordion2
-                      variant="info"
+                      variant="secondary"
                     >Background History of Government Transparency</b-btn>
                   </b-card-header>
                   <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
