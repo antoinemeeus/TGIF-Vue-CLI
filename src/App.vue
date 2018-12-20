@@ -54,7 +54,7 @@
       <router-view></router-view>
     </b-container>
 
-    <footer class="p-3 bg-dark text-white">
+    <footer class="p-1 fixed-bottom bg-dark text-white">
       <div class="container">
         <!-- Copyright -->
         <div class="text-center">

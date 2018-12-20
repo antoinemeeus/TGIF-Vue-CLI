@@ -27,6 +27,14 @@
               :typeAnalisis="typeData"
             ></StatsTable>
           </b-col>
+          <b-col>
+            <StatsTable
+              :title="titleLeast"
+              most_Or_least="most"
+              :chamber="chamber"
+              :typeAnalisis="typeData"
+            ></StatsTable>
+          </b-col>
         </b-row>
       </b-container>
     </main>
