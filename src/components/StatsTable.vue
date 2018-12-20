@@ -56,17 +56,16 @@ export default {
           sortable: true
         }
       },
-      debug_counter: 0,
-      display_successfull: false
+      debug_counter: 0
     };
   },
   methods: {
     getTableData() {
-      this.display_successfull = false;
       if (this.getMembers !== null && this.getMembers.length > 0) {
         this.localLoading = true;
         var self = this;
-        var members = this.getMembers;
+        var members = [];
+        members = this.getMembers;
         var tempList = [];
         //reinitialize the table:
         var length_list = members.length;
@@ -138,7 +137,6 @@ export default {
           class: "text-center"
         };
 
-        this.display_successfull = true;
         this.localLoading = false;
       } else console.log("Data is empty");
     }
@@ -165,7 +163,7 @@ export default {
     },
     $route() {
       //console.log("StatsVue - Watch detected a change inside store for ROUTE?");
-      this.display_successfull ? null : this.getTableData();
+      this.getTableData();
     }
   }
 };

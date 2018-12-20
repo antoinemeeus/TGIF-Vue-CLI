@@ -23,35 +23,34 @@
           </b-col>
         </b-row>
       </header>
-      <div sticky class="navbar-top">
-        <b-navbar sticky type="dark" class="bg-dark" toggleable="md">
-          <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
-          <b-navbar-brand to="/">TGIF</b-navbar-brand>
-          <b-collapse is-nav id="nav_dropdown_collapse">
-            <b-navbar-nav>
-              <b-nav-item to="/">Home</b-nav-item>
-              <!-- Navbar dropdowns -->
-              <b-nav-item-dropdown text="Congress" right>
-                <b-dropdown-item to="/congress/senate">Senate</b-dropdown-item>
-                <b-dropdown-item to="/congress/house">House</b-dropdown-item>
-              </b-nav-item-dropdown>
-              <b-nav-item-dropdown text="Attendance" right>
-                <b-dropdown-item to="/analisis/attendance/senate/">Senate</b-dropdown-item>
-                <b-dropdown-item to="/analisis/attendance/house/">House</b-dropdown-item>
-              </b-nav-item-dropdown>
-              <b-nav-item-dropdown text="Loyalty" right>
-                <b-dropdown-item to="/analisis/loyalty/senate/">Senate</b-dropdown-item>
-                <b-dropdown-item to="/analisis/loyalty/house/">House</b-dropdown-item>
-              </b-nav-item-dropdown>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-      </div>
+
+      <b-navbar sticky type="dark" variant="dark" toggleable="md">
+        <b-navbar-toggle sticky target="nav_dropdown_collapse"></b-navbar-toggle>
+        <b-navbar-brand to="/">TGIF</b-navbar-brand>
+        <b-collapse is-nav id="nav_dropdown_collapse">
+          <b-navbar-nav>
+            <b-nav-item to="/">Home</b-nav-item>
+            <!-- Navbar dropdowns -->
+            <b-nav-item-dropdown text="Congress" right>
+              <b-dropdown-item to="/congress/senate">Senate</b-dropdown-item>
+              <b-dropdown-item to="/congress/house">House</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown text="Attendance" right>
+              <b-dropdown-item to="/analisis/attendance/senate/">Senate</b-dropdown-item>
+              <b-dropdown-item to="/analisis/attendance/house/">House</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown text="Loyalty" right>
+              <b-dropdown-item to="/analisis/loyalty/senate/">Senate</b-dropdown-item>
+              <b-dropdown-item to="/analisis/loyalty/house/">House</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
     </b-container>
     <b-container xl="*">
       <router-view></router-view>
     </b-container>
-    <b-container>
+    <b-container xl="*">
       <footer class="p-3 bg-dark text-white">
         <div class="container">
           <!-- Copyright -->
@@ -254,7 +253,7 @@ html {
 }
 
 .navbar-top {
-  position: sticky;
+  position: sticky !important;
   top: 0px;
   z-index: 1071;
   border: 1px solid red;

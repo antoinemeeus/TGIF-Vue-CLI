@@ -125,11 +125,11 @@ export default {
   },
   watch: {
     getMembers(newData, oldData) {
-      console.log("GlanceVue - Computed detected a change inside store?");
+      //console.log("GlanceVue - Computed detected a change inside store?");
       this.getTableData();
     },
     $route(to, from) {
-      console.log("GlanceVue - Computed detected a change inside ROUTE?");
+      //console.log("GlanceVue - Computed detected a change inside ROUTE?");
       this.getTableData();
     }
   }

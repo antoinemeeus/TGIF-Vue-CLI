@@ -13,7 +13,7 @@
         <b-row inline class="justify-content-between">
           <b-col>
             <StatsTable
-              title="Least Engaged (Bottom 10% Attendance)"
+              :title="titleMost"
               most_Or_least="least"
               :chamber="chamber"
               :typeAnalisis="typeData"
@@ -21,7 +21,7 @@
           </b-col>
           <b-col>
             <StatsTable
-              title="Most Engaged (Top 10% Attendance)"
+              :title="titleLeast"
               most_Or_least="most"
               :chamber="chamber"
               :typeAnalisis="typeData"
@@ -55,6 +55,32 @@ export default {
     },
     gethtmlContent() {
       return this.typeData + "Post";
+    },
+    getTableTitle() {
+      if (this.typeData === "attendance") return "Engaged";
+      if (this.typeData === "loyalty") return "Loyal";
+    },
+    titleMost() {
+      return (
+        "Most " +
+        this.getTableTitle +
+        " (Top " +
+        this.$store.state.PCT_RATIO +
+        "% of " +
+        (this.typeData == "loyalty" ? "Party" : "Attendance") +
+        ")"
+      );
+    },
+    titleLeast() {
+      return (
+        "Least " +
+        this.getTableTitle +
+        " (Bottom " +
+        this.$store.state.PCT_RATIO +
+        "% of " +
+        (this.typeData == "loyalty" ? "Party" : "Attendance") +
+        ")"
+      );
     }
   },
   watch: {
