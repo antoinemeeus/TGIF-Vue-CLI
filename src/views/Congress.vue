@@ -7,10 +7,12 @@
             <div v-html="$store.state[chamber].htmlContent"></div>
           </div>
           <div class="pt-5 col-auto col-lg-5 col-sm-2">
-            <div v-if="getLoading" id="loader" class="container h-100 align-items-stretch">
-              <div
-                class="h-100 py-2 d-flex align-self-stretch align-items-sm-center loader-bg-color justify-content-center"
-              >
+            <div
+              v-if="getLoading"
+              id="loader"
+              class="container h-100 align-items-stretch"
+            >
+              <div class="h-100 py-2 d-flex align-self-stretch align-items-sm-center loader-bg-color justify-content-center">
                 <div class="loader">
                   <div></div>
                   <div></div>
@@ -30,7 +32,10 @@
       <b-container class="bg-white py-2 sticky-top-form">
         <b-row class="d-flex justify-content-between my-sm-2">
           <b-form inline>
-            <label class="mr-sm-2" for="inlineCheckBox">Filter by Party:</label>
+            <label
+              class="mr-sm-2"
+              for="inlineCheckBox"
+            >Filter by Party:</label>
             <b-form-checkbox-group
               id="inlineCheckBox"
               v-model="selected"
@@ -39,7 +44,10 @@
             ></b-form-checkbox-group>
           </b-form>
           <b-form inline>
-            <label class="mr-sm-2" for="inlineSelect">Filter by State:</label>
+            <label
+              class="mr-sm-2"
+              for="inlineSelect"
+            >Filter by State:</label>
             <b-form-select
               class="mb-2 mr-sm-2 mb-sm-0"
               :value="null"
@@ -47,7 +55,10 @@
               :options="sortedStates"
               id="inlineSelect"
             >
-              <option slot="first" value="All">Select All...</option>
+              <option
+                slot="first"
+                value="All"
+              >Select All...</option>
             </b-form-select>
           </b-form>
         </b-row>
@@ -63,18 +74,27 @@
             </span>
           </b-form>
           <b-form inline>
-            <b-form-group horizontal label="Search" class="mb-0">
+            <b-form-group
+              horizontal
+              label="Search"
+              class="mb-0"
+            >
               <b-input-group>
-                <b-form-input v-model="search" placeholder="Type to Search"/>
+                <b-form-input
+                  v-model="search"
+                  placeholder="Type to Search"
+                />
                 <b-input-group-append>
-                  <b-btn :disabled="!search" @click="search = ''">Clear</b-btn>
+                  <b-btn
+                    :disabled="!search"
+                    @click="search = ''"
+                  >Clear</b-btn>
                 </b-input-group-append>
               </b-input-group>
             </b-form-group>
           </b-form>
         </b-row>
       </b-container>
-
       <b-row>
         <div class="col">
           <b-table
@@ -88,7 +108,10 @@
             :filter="search"
             @filtered="onFiltered"
           >
-            <template slot="last_name" slot-scope="data">
+            <template
+              slot="last_name"
+              slot-scope="data"
+            >
               <a
                 :href="`${data.item.url}`"
                 target="_blank"
@@ -143,14 +166,9 @@ export default {
       members: []
     };
   },
-  created() {
-    //Fills selected
-  },
+
   methods: {
-    tableFullName(item) {
-      return `${item.last_name} ${item.middle_name} ${item.first_name}`;
-    },
-    getStateFullName: function(stateAbbr) {
+    getStateFullName: function (stateAbbr) {
       if (typeof this.$store.state.FullNameStatesD !== "undefined") {
         return this.$store.state.FullNameStatesD[stateAbbr];
       }
@@ -172,7 +190,7 @@ export default {
     getMembers() {
       return this.$store.getters.getMembers[this.chamber];
     },
-    sortedStates: function() {
+    sortedStates: function () {
       var uniqueStates = Array.from(
         new Set(this.getMembers.map(member => member.state).sort())
       );
@@ -182,7 +200,7 @@ export default {
       return options;
     },
 
-    upToDateTable: function() {
+    upToDateTable: function () {
       var self = this;
       var listFiltered = [];
       //Filtering with the filter
@@ -195,14 +213,13 @@ export default {
       return listFiltered;
     }
   },
-  watch: {}
 };
 </script>
 
 <style scoped>
 .sticky-top-form {
-  position: sticky;
-  top: 67px;
+  position: sticky !important;
+  top: 3.4375rem;
   background: #c5e0fc;
   z-index: 1019;
 }

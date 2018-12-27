@@ -86,12 +86,7 @@ export default new Vuex.Store({
       'WI': 'Wisconsin',
       'WY': 'Wyoming'
     },
-    apiStatsKeys: {
-      loyalty_votes_fName: 'votes_with_party_pct',
-      engaged_votes_fName: 'missed_votes_pct',
-      total_votes_fName: 'total_votes',
-      missed_votes_fName: 'missed_votes'
-    },
+
     apiTypeStr: {
       attendance: {
         pct_vote_str: 'missed_votes_pct',

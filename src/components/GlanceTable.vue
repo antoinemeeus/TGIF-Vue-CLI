@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div v-if="getLoading" id="loader" class="container h-100 align-items-stretch">
-      <div
-        class="h-100 py-2 d-flex align-self-stretch align-items-sm-center loader-bg-color justify-content-center"
-      >
+    <div
+      v-if="getLoading"
+      id="loader"
+      class="container h-100 align-items-stretch"
+    >
+      <div class="h-100 py-2 d-flex align-self-stretch align-items-sm-center loader-bg-color justify-content-center">
         <div class="loader">
           <div></div>
           <div></div>
@@ -17,10 +19,19 @@
         </div>
       </div>
     </div>
-    <div v-if="!getLoading" id="glanceTable">
-      <div class="col">
-        <b-table show-empty hover :fields="glance_fields" :items="glanceAt"></b-table>
+    <div
+      v-if="!getLoading"
+      id="glanceTable"
+    >
+      <div>
+        <h4>{{capitalizeFirstLetter(this.$route.params.chamber)}} at Glance</h4>
       </div>
+      <b-table
+        show-empty
+        hover
+        :fields="glance_fields"
+        :items="glanceAt"
+      ></b-table>
     </div>
   </div>
 </template>
@@ -88,7 +99,7 @@ export default {
         ];
 
         var glanceStats = data.reduce((acc, obj) => {
-          Object.keys(acc).map(function(key) {
+          Object.keys(acc).map(function (key) {
             if (
               acc[key].party_abrv === obj.party ||
               acc[key].party_abrv === "T"
@@ -103,10 +114,12 @@ export default {
           });
           return acc;
         }, tabelFormat_empty);
-
         this.glanceAt = glanceStats;
         this.localLoading = false;
       } else return console.log("Data is empty");
+    },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
   },
   created() {
@@ -128,10 +141,10 @@ export default {
       //console.log("GlanceVue - Computed detected a change inside store?");
       this.getTableData();
     },
-    $route(to, from) {
-      //console.log("GlanceVue - Computed detected a change inside ROUTE?");
-      this.getTableData();
-    }
+    // $route(to, from) {
+    //   //console.log("GlanceVue - Computed detected a change inside ROUTE?");
+    //   this.getTableData();
+    // }
   }
 };
 </script>

@@ -2,10 +2,17 @@
   <div id="app">
     <b-container xl="*">
       <header>
-        <b-row align-h="between" align-v="center">
+        <b-row
+          align-h="between"
+          align-v="center"
+        >
           <b-col cols="3">
             <a href="index.html">
-              <img class="logo-image" src="@/assets/logo.png" alt="TIGF logo">
+              <img
+                class="logo-image"
+                src="@/assets/logo.png"
+                alt="TIGF logo"
+              >
             </a>
           </b-col>
           <b-col>
@@ -14,7 +21,10 @@
           <b-col cols="auto">
             <span class="pr-2">
               <a href="mailto:paula.davis@gmail.com">
-                <img src="@/assets/iconmonstr-email-3.svg" alt="mail_svg">
+                <img
+                  src="@/assets/iconmonstr-email-3.svg"
+                  alt="mail_svg"
+                >
               </a>
               <a href="mailto:paula.davis@gmail.com">
                 <u>info@tgif.net</u>
@@ -25,23 +35,46 @@
       </header>
     </b-container>
 
-    <b-navbar sticky type="dark" variant="dark" toggleable="md">
+    <b-navbar
+      sticky
+      type="dark"
+      variant="dark"
+      toggleable="md"
+    >
       <b-container>
+        <b-navbar-brand
+          to="/"
+          exact
+        >TGIF</b-navbar-brand>
         <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
-        <b-navbar-brand to="/">TGIF</b-navbar-brand>
-        <b-collapse is-nav id="nav_dropdown_collapse">
+        <b-collapse
+          is-nav
+          id="nav_dropdown_collapse"
+        >
           <b-navbar-nav>
-            <b-nav-item to="/">Home</b-nav-item>
+            <b-nav-item
+              to="/"
+              exact
+            >Home</b-nav-item>
             <!-- Navbar dropdowns -->
-            <b-nav-item-dropdown text="Congress" right>
-              <b-dropdown-item to="/congress/senate">Senate</b-dropdown-item>
-              <b-dropdown-item to="/congress/house">House</b-dropdown-item>
+            <b-nav-item-dropdown
+              text="Congress"
+              left
+            >
+              <b-dropdown-item to="/congress/senate/">Senate</b-dropdown-item>
+              <b-dropdown-item to="/congress/house/">House</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Attendance" right>
+            <b-nav-item-dropdown
+              text="Attendance"
+              left
+            >
               <b-dropdown-item to="/analisis/attendance/senate/">Senate</b-dropdown-item>
               <b-dropdown-item to="/analisis/attendance/house/">House</b-dropdown-item>
             </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Loyalty" right>
+            <b-nav-item-dropdown
+              text="Loyalty"
+              left
+            >
               <b-dropdown-item to="/analisis/loyalty/senate/">Senate</b-dropdown-item>
               <b-dropdown-item to="/analisis/loyalty/house/">House</b-dropdown-item>
             </b-nav-item-dropdown>
@@ -50,7 +83,10 @@
       </b-container>
     </b-navbar>
 
-    <b-container xl="*">
+    <b-container
+      class="pb-4"
+      xl="*"
+    >
       <router-view></router-view>
     </b-container>
 
@@ -71,118 +107,92 @@
 <script>
 export default {
   name: "app",
-  data: function() {
+  data: function () {
     return {};
   },
   mounted() {
-    console.log("Checking if API data is up to date");
-    var currentDate = new Date();
-    var timeDiff = 0;
-    var thirtyMinutes = 1800000; //30 minutes in milliseconds
-    console.log(currentDate);
-    if (localStorage.PropPublica_LastUpdateDate) {
-      console.log("Found last update time:");
-      console.log(new Date(localStorage.PropPublica_LastUpdateDate));
-      timeDiff =
-        currentDate - Date.parse(localStorage.PropPublica_LastUpdateDate);
-      console.log("Time difference (in minutes)= ");
-      console.log(timeDiff / 60000);
-    }
+    this.updateCheck();
+  },
 
-    if (timeDiff > thirtyMinutes) {
-      console.log("Update Due!");
-      console.log("Requesting Senate for update, getting it via API");
-      console.log("Making API requests...");
-      this.fetchData("senate");
-      console.log("Requesting House for update, getting it via API");
-      console.log("Making API requests...");
-      this.fetchData("house");
-    } else {
-      console.log(
-        "Time difference (in minutes)= " +
-          timeDiff / 60000 +
-          " is less than:" +
-          thirtyMinutes / 60000
-      );
-      console.log("No update required: ----");
-      if (localStorage.proPublicaSenateMembers) {
-        let chamber = "senate";
-        console.log(
-          "The Senate data is in local Storage, loading it via LocalStorage"
-        );
-        this.$store.commit("updateLoading", {
-          curChamber: chamber,
-          val: true
-        });
-        this.$store.commit("setChamberMembers", {
-          currentChamber: chamber,
-          listOfMembers: JSON.parse(localStorage.proPublicaSenateMembers)
-        });
-        this.$store.commit("updateLoading", {
-          curChamber: chamber,
-          val: false
-        });
-      } else {
-        console.log(
-          "The Senate data is not in local Storage, getting it via API"
-        );
-        console.log("Making API requests...");
-        this.fetchData("senate");
+  methods: {
+    updateCheck: function () {
+      //Is update date in memory AND Is the time elapsed between fetched data inferior to limit, is fetching data really needed?
+      var thirtyMinutes = 1800000; //30 minutes in milliseconds     
+      if ((typeof localStorage.propPublica_LastUpdateDate !== "undefined") && (((new Date()) - Date.parse(localStorage.propPublica_LastUpdateDate)) < thirtyMinutes)) {
+
+        //Is the data we need actually in memory?
+        if (typeof localStorage.proPublicaSenateMembers !== "undefined") {
+          let chamber = "senate";
+          console.log(
+            "The Senate data is in local Storage, loading it via LocalStorage"
+          );
+          this.$store.commit("updateLoading", {
+            curChamber: chamber,
+            val: true
+          });
+          this.$store.commit("setChamberMembers", {
+            currentChamber: chamber,
+            listOfMembers: JSON.parse(localStorage.proPublicaSenateMembers)
+          });
+          this.$store.commit("updateLoading", {
+            curChamber: chamber,
+            val: false
+          });
+        }
+        else {
+          console.log(
+            "The Senate data is not in local Storage, getting it via API"
+          );
+          this.fetchData("senate");
+        }
+
+        if (typeof localStorage.proPublicaHouseMembers !== "undefined") {
+          let chamber = "house";
+          console.log(
+            "The House data  is in local Storage, loading it via LocalStorage"
+          );
+          this.$store.commit("updateLoading", {
+            curChamber: chamber,
+            val: true
+          });
+          this.$store.commit("setChamberMembers", {
+            currentChamber: chamber,
+            listOfMembers: JSON.parse(localStorage.proPublicaHouseMembers)
+          });
+          this.$store.commit("updateLoading", {
+            curChamber: chamber,
+            val: false
+          });
+        }
+        else {
+          console.log(
+            "The House data is not in local Storage, getting it via API"
+          );
+          this.fetchData("house");
+
+        }
+
       }
-
-      if (localStorage.proPublicaHouseMembers) {
-        let chamber = "house";
-        console.log(
-          "The House data  is in local Storage, loading it via LocalStorage"
-        );
-        this.$store.commit("updateLoading", {
-          curChamber: chamber,
-          val: true
-        });
-        this.$store.commit("setChamberMembers", {
-          currentChamber: chamber,
-          listOfMembers: JSON.parse(localStorage.proPublicaHouseMembers)
-        });
-        this.$store.commit("updateLoading", {
-          curChamber: chamber,
-          val: false
-        });
-      } else {
-        console.log(
-          "The House data is not in local Storage, getting it via API"
-        );
-        console.log("Making API requests...");
+      //update date is not in memory, or the update date is superior to 30 minutes elpased time 
+      else {
+        //Fetch and save
+        console.log("Last Update information not found OR time elapsed since last update is superior to limit. Fetching fresh data...");
+        this.fetchData("senate");
         this.fetchData("house");
       }
-    }
-  },
-  watch: {
-    getMembers(newMembers) {
-      console.log("The data changed!! Saving it to local Storage ");
-      console.log(newMembers);
-      this.saveDataOnLocal(newMembers.senate, "senate");
-      this.saveDataOnLocal(newMembers.house, "house");
-    }
-  },
-  computed: {
-    getMembers() {
-      return this.$store.getters.getMembers;
-    }
-  },
-  methods: {
-    saveDataOnLocal: function(memberList, chamber) {
+    },
+    saveDataOnLocal: function (memberList, chamber) {
       console.log("Saving...");
 
       var newdate = new Date();
       var last_update_date = newdate.toString();
-      localStorage.PropPublica_LastUpdateDate = last_update_date;
+      localStorage.propPublica_LastUpdateDate = last_update_date;
       console.log(last_update_date);
-      if (chamber === "senate")
-        localStorage.proPublicaSenateMembers = JSON.stringify(memberList);
-      if (chamber === "house")
-        localStorage.proPublicaHouseMembers = JSON.stringify(memberList);
+      var idStr = "proPublica" + chamber.charAt(0).toUpperCase() + chamber.slice(1) + "Members";
+      localStorage[idStr] = JSON.stringify(memberList);
     },
-    fetchData: function(chamber) {
+    fetchData: function (chamber) {
+      console.log("Making API requests...");
       this.$store.commit("updateLoading", { curChamber: chamber, val: true });
       let self = this;
       let init = {
@@ -191,14 +201,13 @@ export default {
         })
       };
       let url = this.$store.getters.getUrlAPI(chamber);
-      //console.log(chamber, url);
 
       fetch(url, init)
-        .then(function(resp) {
+        .then(function (resp) {
           if (resp.ok) return resp.json();
           throw new Error(res.statusText);
         })
-        .then(function(json) {
+        .then(function (json) {
           var data = json.results[0].members;
           self.$store.commit("updateLoading", {
             curChamber: chamber,
@@ -211,7 +220,7 @@ export default {
           //saving on local storage:
           self.saveDataOnLocal(data, chamber);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           // called when an error occurs anywhere in the chain
           console.log("Request failed: " + error);
         });
@@ -228,43 +237,46 @@ export default {
     max-width: 1500px;
   }
 }
-html {
-  font-size: 0.6rem;
-}
-
-@media (min-width: 1200px) {
-  html {
-    font-size: 0.8rem;
-  }
-}
-
-@media (min-width: 720px) {
+@media (max-width: 436px) {
   html {
     font-size: 1rem;
   }
 }
-
-@media (min-width: 960px) {
+@media (max-width: 435px) {
   html {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 350px) {
+  html {
+    font-size: 0.6rem;
+  }
+}
+
+.nav-sticky th {
+  position: sticky !important;
+  top: 170px;
+  background: #a0a6ab;
+}
+
+@media (max-width: 768px) {
+  .nav-sticky th {
+    top: 190px;
+  }
+}
+@media (max-width: 425px) {
+  .nav-sticky th {
+    top: 200px;
+  }
+}
+@media (max-width: 320px) {
+  .nav-sticky th {
+    top: 160px;
   }
 }
 .logo-image {
   width: 16vw;
   max-width: 200px;
-}
-
-.navbar-top {
-  position: sticky !important;
-  top: 67px;
-  z-index: 1019;
-  border: 1px solid red;
-}
-
-.nav-sticky th {
-  position: sticky !important;
-  top: 204px;
-  background: #a0a6ab;
 }
 
 /*-------Loader--------------*/
